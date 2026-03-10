@@ -27,3 +27,20 @@ export async function fetchArticles(ids: string[]) {
     };
   });
 }
+
+export async function fetchAbstracts(ids: string[]): Promise<Record<string, string>> {
+  const url = `${NCBI_BASE}/efetch.fcgi?db=pubmed&id=${ids.join(",")}&retmode=xml&rettype=abstract${API_KEY ? `&api_key=${API_KEY}` : ""}`;
+  
+  const res = await fetch(url);
+  const text = await res.text();
+
+  const abstracts: Record<string, string> = {};
+
+  ids.forEach((id) => {
+    const regex = new RegExp(`<PMID[^>]*>${id}<\\/PMID>[\\s\\S]*?<AbstractText[^>]*>([\\s\\S]*?)<\\/AbstractText>`);
+    const match = text.match(regex);
+    abstracts[id] = match ? match[1].replace(/<[^>]+>/g, "").trim() : "No abstract available.";
+  });
+
+  return abstracts;
+}

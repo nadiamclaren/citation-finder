@@ -1,4 +1,4 @@
-import { searchPubMed, fetchArticles } from "@/lib/ncbi";
+import { searchPubMed, fetchArticles, fetchAbstracts } from "@/lib/ncbi";
 
 export async function POST(req: Request) {
   const { query } = await req.json();
@@ -28,13 +28,10 @@ export async function POST(req: Request) {
 
   const refineData = await refineRes.json();
   const refinedQuery = refineData.content[0].text.trim();
-  console.log("Refined query:", refinedQuery);
-
   const ids = await searchPubMed(refinedQuery);
-  console.log("IDs found:", ids);
 
   const articles = await fetchArticles(ids);
-  console.log("Articles:", articles);
+  const abstracts = await fetchAbstracts(ids);
 
   const scoreRes = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
@@ -74,6 +71,7 @@ Score from 0-100. Be strict — only high scores for genuinely relevant sources.
     const match = scores.find((s: any) => s.index === i);
     return {
       ...a,
+      abstract: abstracts[a.pmid] ?? "No abstract available.",
       score: match?.score ?? 0,
       reason: match?.reason ?? "No relevance data",
     };

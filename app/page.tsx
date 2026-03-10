@@ -9,6 +9,7 @@ type Article = {
   year: string;
   score: number;
   reason: string;
+  abstract: string;
 };
 
 export default function Home() {
@@ -239,6 +240,17 @@ export default function Home() {
                     fontStyle: "italic",
                   }}>
                     {a.reason}
+                  </p>
+
+                  {/* Abstract */}
+                  <p style={{
+                    fontSize: "0.85rem",
+                    color: "#b0c4cc",
+                    margin: "0.5rem 0 0",
+                    fontWeight: "300",
+                    lineHeight: "1.6",
+                  }}>
+                    {a.abstract}
                   </p>
 
                   <div style={{
