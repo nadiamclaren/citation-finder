@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cal.AI — PubMed Citation Assistant
+
+Cal.AI is a web app that helps students and researchers find relevant academic sources to support sentences in their essays. Paste a sentence, and Cal.AI will search PubMed, score each result for relevance using AI, and return ranked citations ready to copy in APA format.
+
+Built as a passion project, originally designed with biomedical research in mind.
+
+---
+
+## Features
+
+- **AI-powered query refinement** — your sentence is rephrased into an optimised PubMed search query using Claude
+- **Real PubMed results** — pulls live data from the NCBI API
+- **Relevance scoring** — each result is scored 0–100 and explained by Claude
+- **APA citation copy** — copy any result as a formatted APA citation in one click
+- **Direct PubMed links** — jump straight to the source
+
+---
+
+## Tech Stack
+
+- [Next.js](https://nextjs.org/) — full-stack React framework
+- [NCBI E-utilities API](https://www.ncbi.nlm.nih.gov/home/develop/api/) — PubMed search and metadata
+- [Anthropic Claude API](https://www.anthropic.com/) — query refinement and relevance scoring
+- [Poppins](https://fonts.google.com/specimen/Poppins) via Google Fonts
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- An [Anthropic API key](https://console.anthropic.com/)
+
+### Installation
+
+```bash
+git clone https://github.com/nadiamclaren/citation-finder.git
+cd citation-finder
+npm install
+```
+
+### Environment Variables
+
+Create a `.env.local` file in the root of the project:
+
+```
+ANTHROPIC_API_KEY=your_api_key_here
+```
+
+### Run Locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Usage
 
-## Learn More
+1. Paste a sentence from your essay into the text box
+2. Click **Find Citations**
+3. Cal.AI will search PubMed and return ranked, relevant sources
+4. Click **View on PubMed** to read the full paper, or **Copy APA** to copy the citation
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Planned Features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- [ ] Abstract previews for each result
+- [ ] Additional citation formats (MLA, Vancouver)
+- [ ] Support for additional databases (arXiv, Semantic Scholar)
+- [ ] Text highlighting — select a sentence directly from a pasted essay
+- [ ] Vercel deployment
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
